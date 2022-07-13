@@ -76,12 +76,13 @@ const DashboardOrders = () => {
         <TableBody>
         {allOrders[0]? allOrders.map((o, index) => 
             <StyledTableRow key={index}>
-                <StyledTableCell align="right">{(o.payment_status === 'approved')? 'Aprobada'  : 'Rechazada'}</StyledTableCell>
-                <StyledTableCell align="right">{o.merchant_order_id}</StyledTableCell>
+                <StyledTableCell align="right">{((o.payment_status === 'approved' || o.payment_status === 'APPROVED'))? 'Aprobada'  : 'Rechazada'}</StyledTableCell>
+                <StyledTableCell align="right">{o.payment_status === 'approved' ? o.merchant_order_id : o.merchant_id }</StyledTableCell>
                 <StyledTableCell align="right">{o.Users[0].email}</StyledTableCell>
-                <StyledTableCell align="right"><Link to = {"/orderDetail/" + o.merchant_order_id}> <Button sx={{ m: 1, width: '20ch', color: '#022335', bgcolor:'#dee2e6', borderColor:'#022335',  borderRadius: "5px"}}   variant="outlined" startIcon={<KeyboardReturnIcon fontSize = "large"/>}>
-                Ver Detalle
-                </Button> </Link>
+                <StyledTableCell align="right">
+                <Button sx={{ m: 1, width: '20ch', color: '#022335', bgcolor:'#dee2e6', borderColor:'#022335',  borderRadius: "5px"}}   variant="outlined" startIcon={<KeyboardReturnIcon fontSize = "large"/>}>
+                {(o.payment_status === 'approved')? <Link  to = {"/orderDetail/" + o.merchant_order_id}> Ver detalles </Link> : <Link  to = {"/orderDetailPP/" + o.merchant_id}> Ver detalles </Link>}
+                 </Button>
                 </StyledTableCell>               
                 </StyledTableRow>
           ) : <Loading/>
