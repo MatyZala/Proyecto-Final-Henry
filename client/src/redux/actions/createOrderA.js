@@ -12,9 +12,9 @@ export const getOrder = (orderId, userID, type) => {
     else if (type === 'pp') {
         return async function (dispatch) {
             const response = (await axios.get(`/orderDetails/${orderId}`)).data;
-            console.log(response.purchase_units[0].items)
+            console.log(response)
             console.log(userID, response.purchase_units[0].items, response.purchase_units[0].payee.merchant_id, response.status)
-            dispatch(createOrderPP(response.status, response.purchase_units[0].payee.merchant_id, response.purchase_units[0].items, userID))
+            dispatch(createOrderPP(response.status, response.id, response.purchase_units[0].items, userID))
             dispatch(controlStockPP(response.purchase_units[0].items));
         }
     }
