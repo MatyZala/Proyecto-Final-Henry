@@ -2,7 +2,7 @@ import * as React from 'react';
 import {  useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { userOrderA } from '../../redux/actions/userOrderA';
-import { userAddressesA } from '../../redux/actions/userAddressesA';
+import { userAddressesA, removeAddress, setActiveAddress } from '../../redux/actions/userAddressesA';
 import { getUserReviews } from '../../redux/actions/productReviewA';
 
 import ListSubheader from '@mui/material/ListSubheader';
@@ -118,7 +118,7 @@ export default function PerfilDelUsuario(){
                         {usuario?.picture? <img src={usuario.picture} className= {style.foto} alt= ""/>:  <AccountCircleIcon  className= {style.foto2} fontSize = "large"/>  } 
                         </Avatar>
                     </ListItemAvatar>
-                    <ListItemText    primary= {<p > Bienvenido {usuario?.name}!!</p>}secondary= {usuario?.isAdmin === true? <p className= {style.subTitulo}> Administrador. </p> : ""} />
+                    <ListItemText    primary= {<p > Hola {usuario?.name}!!</p>}secondary= {usuario?.isAdmin === true? <p className= {style.subTitulo}> Administrador. </p> : ""} />
                     </ListItem>
                     <Divider variant="inset" component="li" />
                
@@ -198,19 +198,36 @@ export default function PerfilDelUsuario(){
                 <div>
                     {addresses[0]? addresses.map(a => {
                         return(
-                        <div key={a.id}><br/>
-                            <spam className= {style.subTitulo}>Calle: {a.street}. </spam>
-                            <spam className= {style.subTitulo}>N°: {a.number}. </spam>
-                            <spam className= {style.subTitulo}>Pcia.: {a.province}. </spam>
-                            <spam className= {style.subTitulo}>CP.: {a.zipCode}.</spam>
-                            {a.location? <spam className= {style.subTitulo}>Loc.: {a.location} </spam>: <spam className= {style.subTitulo}> Loc.: no especificada </spam>}
-                            {a.apartment? <spam className= {style.subTitulo}>Depto.: {a.apartment} </spam>: <spam className= {style.subTitulo}>Depto.: no especificado </spam>}
+                        <div key={a.id}>
+                            {a.active && <span className= {style.subTitulo}><b>Dirección de Envíos:</b><br/></span>}
+                            <span className= {style.subTitulo}>Calle: {a.street}. </span>
+                            <span className= {style.subTitulo}>N°: {a.number}. </span><br/>
+                            <span className= {style.subTitulo}>Pcia.: {a.province}. </span>
+                            <span className= {style.subTitulo}>CP.: {a.zipCode}.</span><br/>
+                            {a.location && <span className= {style.subTitulo}>Loc.: {a.location} </span>}
+                            {a.apartment && <span className= {style.subTitulo}>Depto.: {a.apartment} </span>}
+                            {a.description && <span className= {style.subTitulo}>Descripción: {a.description} </span>}
                             <br/>
-                            {a.description? <spam className= {style.subTitulo}>Descripción: {a.description} </spam>: <spam className= {style.subTitulo}>Descripción no especificada </spam>}
-                            <br/>
-                            <Button sx={{bgcolor: "#dee2e6 ",  borderRadius: "10px", color:'#FFC400 ' }} variant="outlined" startIcon={<EditIcon fontSize = "large"/>}>
-                            <Link className= {style.modificar} to={`/updateAddress/${a.id}`}>Modificar dirección.</Link>
+                            <Button sx={{m: 1, bgcolor: "#dee2e6 ",  borderRadius: "10px", color:'#FFC400 ' }} variant="outlined" startIcon={<EditIcon fontSize = "large"/>}>
+                            <Link className= {style.modificar} to={`/updateAddress/${a.id}?street=${a.street}&number=${a.number}&province=${a.province}&zipCode=${a.zipCode}${a.location ? `&location=${a.location}` : ''}${a.apartment ? `&apartment=${a.apartment}` : ''}${a.description ? `&description=${a.description}` : ''}`}>Modificar</Link>
                             </Button>
+                            <Button sx={{m: 1, bgcolor: "#dee2e6 ",  borderRadius: "10px", color:'#FFC400 ' }} variant="outlined" startIcon={<EditIcon fontSize = "large"/>}
+                                    onClick={() => {
+                                        dispatch(removeAddress(usuario.id, a.id))
+                                        .then(() => 
+                                        dispatch(userAddressesA(usuario.id)));
+                                        }}>Eliminar
+                            </Button>
+                            { a.active ? <p></p> :
+                            (<Button sx={{m: 1, bgcolor: "#dee2e6 ",  borderRadius: "10px", color:'#FFC400 ' }} variant="outlined" startIcon={<EditIcon fontSize = "large"/>}
+                            onClick={() => {
+                                        console.log(usuario.id);
+                                        dispatch(setActiveAddress(usuario.id, a.id))
+                                        .then(() => 
+                                        dispatch(userAddressesA(usuario.id)));
+                                        }}>Seleccionar para envíos
+                            </Button>)
+                            }
                             
                             
                         </div>

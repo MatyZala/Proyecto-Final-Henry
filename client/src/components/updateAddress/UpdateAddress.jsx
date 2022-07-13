@@ -1,6 +1,6 @@
 import { updateAddress } from '../../redux/actions/userAddressesA';
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import style from "./UpdateAddress.module.css";
@@ -26,9 +26,18 @@ export default function UpdateAddress() {
     var userId = 0
 
     const dispatch = useDispatch()
+    const [searchParams, setSearchParams] = useSearchParams();
+
     const [errors, setErrors] = useState({})
     const [input, setInput] = useState({
-        street: "", number: "", zipCode: "", description: "", province: "", apartment: "", location: "", id
+        street: searchParams.get("street"),
+        number: searchParams.get("number"),
+        zipCode: searchParams.get("zipCode"),
+        province: searchParams.get("province"),
+        description: searchParams.get("description"),
+        apartment: searchParams.get("apartment"),
+        location: searchParams.get("location"),
+        id
     })
 
     function validate(input) {
@@ -88,9 +97,9 @@ export default function UpdateAddress() {
         }));
 
     }
-    
+
     return (
-        <div>
+        <div>{}
 
             <form  onSubmit={(e) => handleSubmit(e)} >
 
@@ -224,12 +233,12 @@ export default function UpdateAddress() {
              Modificar dirección
             </Button>
             </Stack>
-            <Stack direction="row" spacing={2} >
-            <Link to= "/profile" className= {style.modificar}><Button sx={{ m: 1, width: '68ch', color: '#022335', bgcolor:'#fff', borderColor:'#022335',  borderRadius: "10px"}}   variant="outlined" startIcon={<KeyboardReturnIcon fontSize = "large"/>}>
+            <Link to= "/profile" className= {style.modificar}><Stack direction="row" spacing={2} >
+            <Button sx={{ m: 1, width: '68ch', color: '#022335', bgcolor:'#fff', borderColor:'#022335',  borderRadius: "10px"}}   variant="outlined" startIcon={<KeyboardReturnIcon fontSize = "large"/>}>
                volver
-            </Button></Link> 
+            </Button> 
 
-            </Stack>
+            </Stack></Link>
                 
             </Box>
                 <br />

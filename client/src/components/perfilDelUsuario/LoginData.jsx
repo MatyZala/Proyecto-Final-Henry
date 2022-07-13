@@ -64,7 +64,7 @@ export default function LoginData() {
      ){
         dispatch(UpdateUserA(id, input))
         alert ("Cambios realizados con exito")
-        navigate('/')}
+        navigate('/profile')}
     else {
         alert ("Debe modificar algún campo")
     }

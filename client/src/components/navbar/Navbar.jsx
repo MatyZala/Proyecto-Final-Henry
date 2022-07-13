@@ -267,7 +267,7 @@ export default function PrimarySearchAppBar() {
                         width: 10,
                         height: 10,
                         bgcolor: 'background.paper',
-                        transform: 'translateY(-50%) rotate(45deg)',
+                        transform: 'translateY(-40%) rotate(45deg)',
                         zIndex: 0,
                     },
                 },
@@ -336,7 +336,7 @@ export default function PrimarySearchAppBar() {
     if (location.pathname === '/adminProducts') return (<></>)
     if (location.pathname === '/createproducts') return (<></>)
     if (location.pathname === '/users') return (<></>)
-    if (location.pathname.length === 23) return (<></>)
+    if (location.pathname.length > 23) return (<></>)
     return (
         <ThemeProvider theme={theme}>
             <Box sx={{ flexGrow: 1 }}>
@@ -359,8 +359,8 @@ export default function PrimarySearchAppBar() {
                         </Grid>
                     </Grid>
                 </div>
-                <AppBar position="static" sx={{ backgroundColor: '#3a0ca3', paddingTop: 1.5 }}>
-                    <Toolbar>
+                <AppBar position="static" sx={{ bgcolor: '#3a0ca3', paddingTop: 1.5 }}>
+                    <Toolbar >
                         <Grid container spacing={2}>
                             <Grid item xs={3} sm={5} md={1} lg={1} xl={1.5} sx={{ color: '#ced4da', fontSize: 13, textAlign: 'center', display: 'flex' }}></Grid>
                             <Grid item xs={9} sm={6} md={2} lg={2} xl={1.6} sx={{ color: '#ced4da', fontSize: 13, textAlign: 'center', display: 'flex' }}>
@@ -481,6 +481,6 @@ export default function PrimarySearchAppBar() {
                 {renderMobileMenu}
                 {renderMenu}
             </Box >
-        </ThemeProvider>
+        </ThemeProvider >
     );
 }

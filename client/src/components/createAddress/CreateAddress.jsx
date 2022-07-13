@@ -79,7 +79,7 @@ export default function CreateAddress() {
             navigate('/profile')
         }
         else {
-            alert("Debe compeltar correctamente todos los campos con asteriscos (*)")
+            alert("Debe completar correctamente todos los campos con asteriscos (*)")
 
         }
     }
@@ -234,12 +234,11 @@ export default function CreateAddress() {
              Crear dirección
             </Button>
             </Stack>
-            <Stack direction="row" spacing={2} >
-            <Link to= "/profile" className= {style.modificar}><Button sx={{ m: 1, width: '68ch', color: '#022335', bgcolor:'#fff', borderColor:'#022335',  borderRadius: "10px"}}   variant="outlined" startIcon={<KeyboardReturnIcon fontSize = "large"/>}>
+            <Link to= "/profile" className= {style.modificar}><Stack direction="row" spacing={2} >
+            <Button sx={{ m: 1, width: '68ch', color: '#022335', bgcolor:'#fff', borderColor:'#022335',  borderRadius: "10px"}}   variant="outlined" startIcon={<KeyboardReturnIcon fontSize = "large"/>}>
                volver
-            </Button></Link> 
-
-            </Stack>
+            </Button>
+            </Stack></Link> 
                 
             </Box>
                 <br />
