@@ -351,7 +351,7 @@ export default function PrimarySearchAppBar() {
                             Sobre nosotros
                         </Grid>
                         <Grid item xs={1} sm={2} md={2} lg={1} xl={1} sx={{ color: '#ced4da', fontSize: 14, cursor: 'pointer', display: { xs: 'none', md: 'unset' } }}>
-                            <a href="https://api.whatsapp.com/send?phone=+5492616260059&text=HENTECH%20horario%20de%20atencion:%20Lunes%20a%20viernes%20de%209.30%20-%2019.00hs" style={{ textDecoration: 'none', color: 'inherit' }}>Contactanos</a>
+                            <a href="https://api.whatsapp.com/send?phone=+5492616260059&text=Hola,%20me%20gustaría%20recibir%20asesoramiento" style={{ textDecoration: 'none', color: 'inherit' }}>Contactanos</a>
 
                         </Grid>
                         <Grid item xs={1} sm={2} md={2} lg={1} xl={1} sx={{ color: '#ced4da', fontSize: 14, textAlign: 'left', cursor: 'pointer', marginLeft: -2, display: { xs: 'none', md: 'unset' } }}>
