@@ -36,6 +36,8 @@ const {updateOrder} = require('../controllers/Admin/PUT/changeStatus')
 const {filterStatus} = require('../controllers/Admin/GET/filterStatus')
 
 
+const {getOrders} = require('../controllers/Emailer/Emailer')
+
 const router = Router();
 
 // Configurar los routers
@@ -108,5 +110,7 @@ router.post('/create-order-pp', createOrderPP)
 router.put('/updateStatus/:idOrder', updateOrder)
 
 router.get('/filterStatus/:status', filterStatus)
+
+router.get('/emailer/:orderID', getOrders)
 
 module.exports = router;
