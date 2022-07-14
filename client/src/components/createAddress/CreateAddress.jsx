@@ -13,9 +13,10 @@ import Button from '@mui/material/Button';
 import EditIcon from '@mui/icons-material/Edit';
 import Stack from '@mui/material/Stack';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import { useSnackbar } from 'notistack';
 
 export default function CreateAddress() {
-
+    const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate ()
     const {user} = useAuth0()
     const allUser = useSelector((state) => state.DashboardUsersR.allUsers);
@@ -66,7 +67,7 @@ export default function CreateAddress() {
             && !errors.hasOwnProperty("zipCode")
         ) {
             dispatch(postAddress(input))
-            alert("Dirección agregada con éxito")
+             enqueueSnackbar('Dirección agregada con éxito', { variant: 'success' });
             /* setInput({
                 street: "",
                 number: "",
@@ -76,11 +77,12 @@ export default function CreateAddress() {
                 apartment: "",
                 description: "",
             }) */
-            navigate('/profile')
+            setTimeout(() => {
+                window.location.href='http://localhost:3000/profile'
+            }, 1000);
         }
         else {
-            alert("Debe completar correctamente todos los campos con asteriscos (*)")
-
+             enqueueSnackbar("Debe compeltar correctamente todos los campos con asteriscos (*)", { variant: 'error' });
         }
     }
 

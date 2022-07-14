@@ -40,7 +40,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore'
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
-
+import { useSnackbar } from 'notistack';
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -67,6 +67,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 export default function DashboardUsers() {
 
+    const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch()
     const allUser = useSelector ((state) => state.DashboardUsersR.allUsers);
     const userAdmin = useSelector ((state) => state.DashboardUsersR.usersAdmin);
@@ -92,13 +93,16 @@ export default function DashboardUsers() {
 
     const handleChangeAdmin = (event) => {
         dispatch(UpdateUserA(event.target.name, {isAdmin: event.target.value}))//////
-        alert("Usuario modificado")
-        window.location.href='http://localhost:3000/users'
+         enqueueSnackbar("Usuario modificado", { variant: 'info' });
+         setTimeout(() => {
+            window.location.href='http://localhost:3000/users'
+        }, 1000);
+        
     };
 
     const handleChangeBanned = (event) => {
         dispatch(UpdateUserA(event.target.name, {banned: event.target.value}))//////
-        alert("Usuario modificado")
+         enqueueSnackbar("Usuario modificado", { variant: 'info' });
         window.location.href='http://localhost:3000/users'
       };
    
@@ -131,7 +135,7 @@ export default function DashboardUsers() {
         <>
 
 {
-    (isAuthenticated && findedUser?.isAdmin)?
+    // (isAuthenticated && findedUser?.isAdmin)?
     <div>
 
         <Grid container justify = "center"  sx={{width: '100%', my: "5%",  maxWidth: "100%"  }}>     
@@ -435,7 +439,7 @@ export default function DashboardUsers() {
 
 
     </div> 
-    : <Error404NotAdmin/>
+    // : <Error404NotAdmin/>
 } 
     </>
     )

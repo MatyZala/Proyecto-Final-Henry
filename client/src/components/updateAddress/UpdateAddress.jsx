@@ -13,9 +13,10 @@ import Button from '@mui/material/Button';
 import EditIcon from '@mui/icons-material/Edit';
 import Stack from '@mui/material/Stack';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import { useSnackbar } from 'notistack';
 
 export default function UpdateAddress() {
-
+    const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate ()
     const {user} = useAuth0()
     const allUser = useSelector((state) => state.DashboardUsersR.allUsers);
@@ -73,12 +74,18 @@ export default function UpdateAddress() {
             if(usuario){
                 userId = usuario.id
                 dispatch(updateAddress(userId, input))
-                alert("Dirección agregada con éxito")
-                navigate('/profile')
+
+
+
+                enqueueSnackbar("Dirección modificada con éxito", { variant: 'success' });
+                setTimeout(() => {
+                    window.location.href='http://localhost:3000/profile'
+                }, 1000);
+                
             }
         }
         else {
-            alert("Debe compeltar correctamente todos los campos con asteriscos (*)")
+             enqueueSnackbar("Debe compeltar correctamente todos los campos con asteriscos (*)", { variant: 'error' });
 
         }
     }
